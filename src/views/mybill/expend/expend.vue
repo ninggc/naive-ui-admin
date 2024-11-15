@@ -1,11 +1,4 @@
 <template>
-    <n-card :bordered="false">
-      <BasicForm @register="register" @submit="handleSubmit" @reset="handleReset">
-        <template #statusSlot="{ model, field }">
-          <n-input v-model:value="model[field]" />
-        </template>
-      </BasicForm>
-    </n-card>
     <n-card :bordered="false" class="mt-3">
       <BasicTable
         :columns="columns"
@@ -16,6 +9,8 @@
         @update:checked-row-keys="onCheckedRow"
         :scroll-x="1500"
         :striped="true"
+        :resizable="true"
+        :filter="true"
       >
         <template #tableTitle>
           <n-button type="primary" @click="addTable">
