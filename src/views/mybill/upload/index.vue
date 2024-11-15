@@ -1,27 +1,20 @@
 <template>
   <div>
     <div class="n-layout-page-header">
-      <n-card :bordered="false" title="上传图片"> 上传图片，用于向用户收集图片信息 </n-card>
+      <n-card :bordered="false" title="上传账单"> 上传账单文件 </n-card>
     </div>
     <n-card :bordered="false" class="mt-4 proCard">
       <n-grid cols="2 s:1 m:3 l:3 xl:3 2xl:3" responsive="screen">
         <n-grid-item offset="0 s:0 m:1 l:1 xl:1 2xl:1">
           <n-form
-            :label-width="90"
+            :label-width="120"
             :model="formValue"
             :rules="rules"
             label-placement="left"
             ref="formRef"
             class="py-8"
           >
-            <n-form-item label="预约姓名" path="name">
-              <n-input v-model:value="formValue.name" placeholder="输入姓名" />
-            </n-form-item>
-            <n-form-item label="预约号码" path="mobile">
-              <n-input placeholder="电话号码" v-model:value="formValue.mobile" />
-            </n-form-item>
-
-            <n-form-item label="病例图片" path="images">
+            <n-form-item label="WX账单文件" path="file">
               <BasicSelect
                 :default-upload="false"
                 :headers="uploadHeaders"
@@ -36,7 +29,7 @@
             </n-form-item>
             <div style="margin-left: 80px">
               <n-space>
-                <n-button type="primary" @click="formSubmit">提交预约</n-button>
+                <n-button type="primary" @click="formSubmit">导入</n-button>
                 <n-button @click="resetForm">重置</n-button>
               </n-space>
             </div>
@@ -57,11 +50,6 @@
   const globSetting = useGlobSetting();
 
   const rules = {
-    name: {
-      required: false,
-      message: '请输入预约姓名',
-      trigger: 'blur',
-    },
     remark: {
       required: false,
       message: '请输入预约备注',
@@ -80,8 +68,6 @@
   const { uploadUrl } = globSetting;
 
   const formValue = reactive({
-    name: '',
-    mobile: '',
     //图片列表 通常查看和编辑使用 绝对路径 | 相对路径都可以
     images: ['https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'],
     files: [],
@@ -101,6 +87,7 @@
         if (files.length > 0) {
           uploadFile(files).then(response => {
             console.log('Files uploaded successfully:', response);
+            message.success(`成功上传了 ${files.length} 个文件`);
           }).catch(error => {
             console.error('File upload failed:', error);
           });
@@ -113,8 +100,6 @@
 
   function resetForm() {
     formRef.value.resetFields();
-    formValue.name = '';
-    formValue.mobile = '';
     formValue.files = [];
   }
 

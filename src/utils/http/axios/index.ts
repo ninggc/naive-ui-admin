@@ -2,8 +2,9 @@ import axios from 'axios';
 
 // Create an instance of axios
 const axiosInstance = axios.create({
-    baseURL: 'http://192.168.71.71:8000', // Base URL for the API
-    timeout: 5000, // Request timeout
+    // baseURL: 'http://192.168.71.71:8000', // Base URL for the API
+    baseURL: 'http://localhost:8000', // Base URL for the API
+    timeout: 60 * 1000 , // Request timeout
 });
 
 // Request interceptor
