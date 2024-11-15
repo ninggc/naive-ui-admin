@@ -1,9 +1,31 @@
-import { Alova } from '@/utils/http/alova/index';
+import axiosInstance from '@/utils/http/axios/index';
 
 //获取table
 export function getTableList(params) {
-  debugger
-  let prefix = 'http://localhost:8000';
+  return axiosInstance.get('/api/api-bill/list', { params })
+    .then(data => {
+      // 处理返回的数据
+      console.log('getTableList');
+      console.log(data);
+      return data;
+    });
+}
 
-  return Alova.Get(prefix + '/api/api-bill/list', { params });
+// 上传文件
+export function uploadFile(files: File[]) {
+  const formData = new FormData();
+  files.forEach(file => {
+    formData.append('files', file);
+  });
+
+  return axiosInstance.post('/api/api-bill/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  }).then(data => {
+    // 处理返回的数据
+    console.log('uploadFile');
+    console.log(data);
+    return data;
+  });
 }

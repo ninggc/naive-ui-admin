@@ -31,6 +31,14 @@ const routes: Array<RouteRecordRaw> = [
         },
         component: () => import('@/views/mybill/income/income.vue'),
       },
+      {
+        path: 'upload',
+        name: 'upload',
+        meta: {
+          title: '导入',
+        },
+        component: () => import('@/views/mybill/upload/index.vue'),
+      },
     ],
   },
 ];

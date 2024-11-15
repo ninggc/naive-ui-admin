@@ -17,15 +17,15 @@ export const columns: BasicColumn<ListData>[] = [
   },
   {
     title: '交易类型',
-    key: 'transactionType',
+    key: 'transaction_type',
     render(record) {
       return h(
         NTag,
         {
-          type: record.transactionType === TransactionType.Expense ? 'error' : 'success',
+          type: record.transaction_type === TransactionType.Expense ? 'error' : 'success',
         },
         {
-          default: () => record.transactionType,
+          default: () => record.transaction_type,
         }
       );
     },
@@ -40,7 +40,7 @@ export const columns: BasicColumn<ListData>[] = [
   },
   {
     title: '子分类',
-    key: 'subCategory',
+    key: 'sub_category',
   },
   {
     title: '账户',
@@ -64,7 +64,7 @@ export const columns: BasicColumn<ListData>[] = [
   },
   {
     title: '项目分类',
-    key: 'projectCategory',
+    key: 'project_category',
   },
   {
     title: '项目',

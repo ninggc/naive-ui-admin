@@ -2,5 +2,10 @@ import { Alova } from '@/utils/http/alova/index';
 
 //获取table
 export function getTableList(params) {
-  return Alova.Get('/api/api-bill/list', { params });
+  let res = Alova.Get('/table/list', { params });
+  res.then(data => {
+    console.log('getTableList');
+    console.log(data);
+  })
+  return res
 }
