@@ -21,6 +21,15 @@
             </template>
             新建
           </n-button>
+
+          <n-button type="primary" @click="syncToFeishu">
+            <template #icon>
+              <n-icon>
+                <PlusOutlined />
+              </n-icon>
+            </template>
+            Sync To Feishu
+          </n-button>
         </template>
   
         <template #toolbar> </template>
@@ -208,6 +217,10 @@
   
     function addTable() {
       showModal.value = true;
+    }
+
+    function suncToFeishu() {
+      
     }
   
     const loadDataTable = async (res) => {

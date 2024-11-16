@@ -13,7 +13,6 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
 import type { UploadFileInfo, UploadInst } from 'naive-ui'
-import { uploadFile } from '@/api/mybill/list'
 
 export default defineComponent({
   props: {

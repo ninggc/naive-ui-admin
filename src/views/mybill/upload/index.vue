@@ -89,7 +89,7 @@
             console.log('Files uploaded successfully:', response);
             message.success(`成功上传了 ${files.length} 个文件`);
           }).catch(error => {
-            console.error('File upload failed:', error);
+            message.error('文件上传失败:', error);
           });
         }
       } else {
