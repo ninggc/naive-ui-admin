@@ -22,13 +22,22 @@
             新建
           </n-button>
 
-          <n-button type="primary" @click="syncToFeishu">
+          <n-button type="primary" @click="doExport">
             <template #icon>
               <n-icon>
                 <PlusOutlined />
               </n-icon>
             </template>
-            Sync To Feishu
+            导出
+          </n-button>
+
+          <n-button type="primary" @click="doSyncBills">
+            <template #icon>
+              <n-icon>
+                <PlusOutlined />
+              </n-icon>
+            </template>
+            同步到飞书
           </n-button>
         </template>
   
@@ -102,7 +111,7 @@
     import { h, reactive, ref } from 'vue';
     import { BasicTable, TableAction } from '@/components/Table';
     import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
-    import { getTableList } from '@/api/mybill/list';
+    import { getTableList, exportBills, syncBills } from '@/api/mybill/list';
     import { columns, ListData } from './columns';
     import { PlusOutlined } from '@vicons/antd';
     import { useRouter } from 'vue-router';
@@ -219,8 +228,21 @@
       showModal.value = true;
     }
 
-    function suncToFeishu() {
-      
+    function doExport() {
+      exportBills().then(() => {
+        window['$message'].success('导出成功');
+      }).catch(() => {
+        window['$message'].error('导出失败');
+      });
+    }
+
+    function doSyncBills() {
+      syncBills().then(() => {
+        window['$message'].success('同步成功');
+      }).catch((e) => {
+        console.log(e);
+        window['$message'].error('同步失败');
+      });
     }
   
     const loadDataTable = async (res) => {
