@@ -13,97 +13,30 @@
         :filter="true"
       >
         <template #tableTitle>
-          <n-button type="primary" @click="addTable">
-            <template #icon>
-              <n-icon>
-                <PlusOutlined />
-              </n-icon>
-            </template>
-            新建
-          </n-button>
+          <n-space>
+            <n-button type="primary" @click="doExport">
+              <template #icon>
+                <n-icon>
+                  <PlusOutlined />
+                </n-icon>
+              </template>
+              导出
+            </n-button>
 
-          <n-button type="primary" @click="doExport">
-            <template #icon>
-              <n-icon>
-                <PlusOutlined />
-              </n-icon>
-            </template>
-            导出
-          </n-button>
-
-          <n-button type="primary" @click="doSyncBills">
-            <template #icon>
-              <n-icon>
-                <PlusOutlined />
-              </n-icon>
-            </template>
-            同步到飞书
-          </n-button>
+            <n-button type="primary" @click="doSyncBills">
+              <template #icon>
+                <n-icon>
+                  <PlusOutlined />
+                </n-icon>
+              </template>
+              同步到飞书
+            </n-button>
+          </n-space>
         </template>
   
         <template #toolbar> </template>
       </BasicTable>
-  
-      <n-modal v-model:show="showModal" :show-icon="false" preset="dialog" title="新建">
-        <n-form
-          :model="formParams"
-          :rules="rules"
-          ref="formRef"
-          label-placement="left"
-          :label-width="80"
-          class="py-4"
-        >
-          <n-form-item label="唯一ID" path="uniqueId">
-            <n-input placeholder="请输入唯一ID" v-model:value="formParams.uniqueId" />
-          </n-form-item>
-          <n-form-item label="应用" path="app">
-            <n-input placeholder="请输入应用" v-model:value="formParams.app" />
-          </n-form-item>
-          <n-form-item label="交易时间" path="transactionHour">
-            <n-input placeholder="请输入交易时间" v-model:value="formParams.transactionHour" />
-          </n-form-item>
-          <n-form-item label="交易类型" path="transactionType">
-            <n-input placeholder="请输入交易类型" v-model:value="formParams.transactionType" />
-          </n-form-item>
-          <n-form-item label="交易对方" path="counterparty">
-            <n-input placeholder="请输入交易对方" v-model:value="formParams.counterparty" />
-          </n-form-item>
-          <n-form-item label="对方账号" path="otherAccounts">
-            <n-input placeholder="请输入对方账号" v-model:value="formParams.otherAccounts" />
-          </n-form-item>
-          <n-form-item label="商品" path="commodity">
-            <n-input placeholder="请输入商品" v-model:value="formParams.commodity" />
-          </n-form-item>
-          <n-form-item label="收/支" path="incomeExpenditure">
-            <n-input placeholder="请输入收/支" v-model:value="formParams.incomeExpenditure" />
-          </n-form-item>
-          <n-form-item label="金额" path="amount">
-            <n-input-number placeholder="请输入金额" v-model:value="formParams.amount" />
-          </n-form-item>
-          <n-form-item label="支付方式" path="paymentMethod">
-            <n-input placeholder="请输入支付方式" v-model:value="formParams.paymentMethod" />
-          </n-form-item>
-          <n-form-item label="当前状态" path="currentState">
-            <n-input placeholder="请输入当前状态" v-model:value="formParams.currentState" />
-          </n-form-item>
-          <n-form-item label="交易单号" path="transactionNumber">
-            <n-input placeholder="请输入交易单号" v-model:value="formParams.transactionNumber" />
-          </n-form-item>
-          <n-form-item label="商户单号" path="merchantTrackingNumber">
-            <n-input placeholder="请输入商户单号" v-model:value="formParams.merchantTrackingNumber" />
-          </n-form-item>
-          <n-form-item label="备注" path="remark">
-            <n-input type="textarea" placeholder="请输入备注" v-model:value="formParams.remark" />
-          </n-form-item>
-        </n-form>
-  
-        <template #action>
-          <n-space>
-            <n-button @click="() => (showModal = false)">取消</n-button>
-            <n-button type="info" :loading="formBtnLoading" @click="confirmForm">确定</n-button>
-          </n-space>
-        </template>
-      </n-modal>
+
     </n-card>
   </template>
   
@@ -231,7 +164,8 @@
     function doExport() {
       exportBills().then(() => {
         window['$message'].success('导出成功');
-      }).catch(() => {
+      }).catch((e) => {
+        console.log(e);
         window['$message'].error('导出失败');
       });
     }

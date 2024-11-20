@@ -106,7 +106,7 @@
 
   const formInline = reactive({
     username: 'admin',
-    password: '123456',
+    password: '906978985',
     isCaptcha: true,
   });
 

@@ -30,6 +30,9 @@ axiosInstance.interceptors.response.use(
         const responseData = response.data;
         if (responseData.code === 200) {
             return responseData.data;
+        } else if (response.headers['content-type'] === 'application/octet-stream') {
+            // content-type:
+            return response;
         } else {
             return Promise.reject(new Error(responseData.message || 'Error'));
         }
