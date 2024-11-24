@@ -14,6 +14,9 @@
             ref="formRef"
             class="py-8"
           >
+            <n-form-item label="选择账单类型" path="billType">
+              <n-select v-model:value="formValue.billType" :options="paymentOptions" />
+            </n-form-item>
             <n-form-item label="WX账单文件" path="file">
               <BasicSelect
                 :default-upload="false"
@@ -68,10 +71,16 @@
   const { uploadUrl } = globSetting;
 
   const formValue = reactive({
-    //图片列表 通常查看和编辑使用 绝对路径 | 相对路径都可以
+    //图片列表 通常查看和编辑使用 绝对路径 | 相���路径都可以
     images: ['https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'],
     files: [],
+    billType: '',
   });
+
+  const paymentOptions = [
+    { label: '微信', value: 'WeChat' },
+    { label: '支付宝', value: 'Alipay' },
+  ];
 
   const uploadHeaders = reactive({
     platform: 'miniPrograms',
@@ -85,7 +94,7 @@
         console.log('formValue', formValue);
         const files = formValue.files.map(fileInfo => fileInfo.file);
         if (files.length > 0) {
-          uploadFile(files).then(response => {
+          uploadFile(formValue.billType, files).then(response => {
             console.log('Files uploaded successfully:', response);
             message.success(`成功上传了 ${files.length} 个文件`);
           }).catch(error => {
@@ -101,6 +110,7 @@
   function resetForm() {
     formRef.value.resetFields();
     formValue.files = [];
+    formValue.billType = null;
   }
 
   function uploadChange(list: UploadFileInfo[]) {

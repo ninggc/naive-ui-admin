@@ -12,8 +12,9 @@ export function getTableList(params) {
 }
 
 // 上传文件
-export function uploadFile(files: File[]) {
+export function uploadFile(type: String, files: File[]) {
   const formData = new FormData();
+  formData.append('type', type);
   files.forEach(file => {
     formData.append('files', file);
   });
